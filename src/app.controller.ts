@@ -1,12 +1,38 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import {
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Req,
+} from '@nestjs/common';
+import { Request } from 'express';
 
-@Controller()
+@Controller('/user1')
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  getAll() {
+    return { name: 'User' };
+  }
+
+  @Post()
+  store(@Req() req: Request) {
+    return req.body;
+  }
+
+  @Get('/:id')
+  getOne(@Req() req: Request, @Param() params: { id: number }) {
+    return params;
+  }
+
+  @Patch('/:id')
+  update(@Param() params: { id: number }) {
+    return params;
+  }
+
+  @Delete('/:id')
+  delete(@Param() params: { id: number }) {
+    return params;
   }
 }
